@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
-import android.util.Log;
 
 import com.ad.service.MyIntentService;
 import com.ad.utils.Utils;
@@ -12,14 +11,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 
-/**
- * 在此写用途
- *
- * @version V1.0 <描述当前版本功能>
- * @FileName: com.ccdt.app.tv.iptv.app.MyApp.java
- * @author: Sun
- * @date: 2017-04-19 16:16
- */
 public class MyApp extends Application {
 
     /**
@@ -28,6 +19,14 @@ public class MyApp extends Application {
     private static MyApp cInstance;
     public static boolean vodAllAuth = false;
     public static String mac;
+
+    public static RequestQueue getQueue() {
+        return queue;
+    }
+
+    public static void setQueue(RequestQueue queue) {
+        MyApp.queue = queue;
+    }
 
     @Override
     public void onCreate() {

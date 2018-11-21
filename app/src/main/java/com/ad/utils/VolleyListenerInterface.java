@@ -7,7 +7,6 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import ypsiptv.prison.R;
 
 public abstract class VolleyListenerInterface {
     public Context mContext;
@@ -45,8 +44,7 @@ public abstract class VolleyListenerInterface {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 onMyError(volleyError);
-                Toast.makeText(mContext,
-                        mContext.getString(R.string.toast_networkError), Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "network error", Toast.LENGTH_LONG).show();
             }
         };
         return mErrorListener;

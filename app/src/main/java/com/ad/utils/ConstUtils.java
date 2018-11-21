@@ -3,6 +3,7 @@ package com.ad.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.ad.app.MyApp;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -12,7 +13,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import ypsiptv.prison.MyApplication;
 
 public class ConstUtils {
     public static String BASEURL = "http://192.168.2.25:8106";
@@ -57,7 +57,7 @@ public class ConstUtils {
         final String upLoadServerUri = "";
         HashMap<String, String[]> map = new HashMap<>();
         map.put("uploadedfile", new String[]{filename, cutnameString});
-        MyApplication.getQueue().add(new PostUploadRequest(upLoadServerUri,
+        MyApp.getQueue().add(new PostUploadRequest(upLoadServerUri,
                 map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {

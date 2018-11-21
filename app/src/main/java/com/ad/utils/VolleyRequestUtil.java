@@ -2,6 +2,7 @@ package com.ad.utils;
 
 import android.content.Context;
 
+import com.ad.app.MyApp;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -9,7 +10,6 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.util.Map;
 
-import ypsiptv.prison.MyApplication;
 
 public class VolleyRequestUtil {
 
@@ -30,7 +30,7 @@ public class VolleyRequestUtil {
                                   VolleyListenerInterface volleyListenerInterface,
                                   boolean timeOutDefaultFlg) {
         // 清除请求队列中的tag标记请求
-        MyApplication.getQueue().cancelAll(tag);
+        MyApp.getQueue().cancelAll(tag);
         // 创建当前的请求，获取字符串内容
         stringRequest = new StringRequest(Request.Method.GET, ConstUtils.BASEURL + url,
                 volleyListenerInterface.responseListener(), volleyListenerInterface.errorListener());
@@ -41,9 +41,9 @@ public class VolleyRequestUtil {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(myTimeOut,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // 将当前请求添加到请求队列中
-        MyApplication.getQueue().add(stringRequest);
+        MyApp.getQueue().add(stringRequest);
         // 重启当前请求队列
-        MyApplication.getQueue().start();
+        MyApp.getQueue().start();
     }
 
     /*
@@ -61,7 +61,7 @@ public class VolleyRequestUtil {
                                    VolleyListenerInterface volleyListenerInterface,
                                    boolean timeOutDefaultFlg) {
         // 清除请求队列中的tag标记请求
-        MyApplication.getQueue().cancelAll(tag);
+        MyApp.getQueue().cancelAll(tag);
         // 创建当前的POST请求，并将请求内容写入Map中
         stringRequest = new StringRequest(Request.Method.POST, ConstUtils.BASEURL + url,
                 volleyListenerInterface.responseListener(), volleyListenerInterface.errorListener()) {
@@ -77,8 +77,8 @@ public class VolleyRequestUtil {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(myTimeOut,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // 将当前请求添加到请求队列中
-        MyApplication.getQueue().add(stringRequest);
+        MyApp.getQueue().add(stringRequest);
         // 重启当前请求队列
-        MyApplication.getQueue().start();
+        MyApp.getQueue().start();
     }
 }
