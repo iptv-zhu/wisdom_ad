@@ -1,9 +1,11 @@
 package com.ad.view.activity;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.ad.R;
+import com.ad.app.ActivityManager;
 import com.ad.view.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {

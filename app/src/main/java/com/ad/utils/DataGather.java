@@ -15,7 +15,7 @@ import java.io.OutputStreamWriter;
 
 public class DataGather {
 
-    private static String time = Util.creatTime(System.currentTimeMillis());
+    private static String time = Utils.creatTime(System.currentTimeMillis());
     private static String filesDir = MyApp.getInstance().getFilesDir().getAbsolutePath();
 
     public static void writeDG(String str) {

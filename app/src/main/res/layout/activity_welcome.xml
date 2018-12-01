@@ -6,21 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.WelcomeActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="@color/red"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintLeft_toLeftOf="parent" />
 
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/cadetblue"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:text="设置"
-        android:layout_height="wrap_content" />
 </android.support.constraint.ConstraintLayout>

@@ -1,21 +1,34 @@
 package com.ad.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.StrictMode;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.ad.service.MyIntentService;
+import com.ad.utils.LogUtils;
+import com.ad.utils.SpUtils;
 import com.ad.utils.Utils;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 
 public class MyApp extends Application {
-
     /**
      * Application实例
      */
+    private static Context context;
+    private static AudioManager am;
+    private static int maxvolume;
+    private static int defaultvolume;
     private static MyApp cInstance;
     public static boolean vodAllAuth = false;
     public static String mac;
@@ -28,9 +41,18 @@ public class MyApp extends Application {
         MyApp.queue = queue;
     }
 
+    public static Gson gson;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        context = this;
+        gson = new GsonBuilder().create();
+        am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        maxvolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        defaultvolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        LogUtils.d("maxvolume" + maxvolume + " " + "defaultvolume" + defaultvolume);
+        SpUtils.putInt(context, "vol", defaultvolume);
 
         //未捕获异常处理
 //        CrashHandler.getInstance().init(getApplicationContext());
@@ -54,6 +76,13 @@ public class MyApp extends Application {
         mac = Utils.getMACAddress();
         startService(new Intent(this, MyIntentService.class));
     }
+
+    // 设置音量
+    public static void setStreamVolume(int percent) {
+        int volume = (int) Math.round((double) maxvolume * percent / 100);
+        am.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_SHOW_UI);
+    }
+
 
     // 建立请求队列
     public static RequestQueue queue;
@@ -136,4 +165,34 @@ public class MyApp extends Application {
 
 //        DataCollectManager.getInstance().collect("startUp", value.toString());
     }
+
+    /**
+     * 获取设备当前屏幕宽高
+     */
+
+    public String getWH(Context context) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager)
+                context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+
+        int screenWidth = metrics.widthPixels;
+        int screenHeight = metrics.heightPixels;
+        return screenWidth + "x" + screenHeight;
+    }
+
+    public static <T> T jsonToObject(String json, TypeToken<T> typeToken) {
+        //  new TypeToken<AJson<Object>>() {}.getType()   对象参数
+        // new TypeToken<AJson<List<Object>>>() {}.getType() 集合参数
+
+        if (TextUtils.isEmpty(json) || json.equals("null"))
+            return null;
+        try {
+            return gson.fromJson(json, typeToken.getType());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
 }

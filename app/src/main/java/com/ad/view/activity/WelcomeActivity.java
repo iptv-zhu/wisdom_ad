@@ -1,11 +1,13 @@
 package com.ad.view.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.format.Formatter;
+import android.util.Log;
 
 import com.ad.R;
-import com.ad.utils.Util;
-import com.ad.utils.Utils;
+import com.ad.app.ActivityManager;
 import com.ad.view.base.BaseActivity;
 
 public class WelcomeActivity extends BaseActivity {
@@ -14,11 +16,8 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
-        Util utils = new Util();
-        String speed = utils.getNetSpeed(this);
-        System.out.println("@@@@@" + Utils.getMACAddress());
     }
+
 
     @Override
     public void initView(Bundle savedInstanceState) {

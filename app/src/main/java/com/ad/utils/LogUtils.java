@@ -44,7 +44,7 @@ public class LogUtils {
 
     public static void d(String msg) {
         if (isDebug) {
-            Log.d(APP_TAG + "@" + Util.formatTime(), getMsgFormat(msg));
+            Log.d(APP_TAG + "@" + Utils.formatTime(), msg);
         }
     }
 
